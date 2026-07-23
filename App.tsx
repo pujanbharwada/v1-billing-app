@@ -302,7 +302,7 @@ function HomeScreen({ navigation, route }: any) {
   };
 
   // ==================== FINAL PRINT FUNCTION ====================
-  // 5x7 inch single-page Tax Invoice print
+  // 5x7 inch single-page Tax Invoice print (Maximized item capacity with GSTIN/FSSAI)
   const printBill = async () => {
     try {
       const filteredItems = items.filter(isPopulatedItem);
@@ -350,30 +350,29 @@ function HomeScreen({ navigation, route }: any) {
         '<style>' +
         '@page { size: 5in 7in; margin: 0; }' +
         '* { margin: 0; padding: 0; box-sizing: border-box; }' +
-        'html, body { width: 5in; height: 7in; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 8.5pt; color: #000; }' +
-        '.page-container { width: 5in; height: 7in; padding: 3mm; display: flex; flex-direction: column; justify-content: space-between; }' +
-        '.title-banner { text-align: center; font-weight: bold; font-size: 11pt; border: 1px solid #000; padding: 1mm; background: #f0f0f0; letter-spacing: 0.5px; text-transform: uppercase; }' +
+        'html, body { width: 5in; height: 7in; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 8pt; color: #000; }' +
+        '.page-container { width: 5in; height: 7in; padding: 2.5mm; display: flex; flex-direction: column; justify-content: space-between; }' +
+        '.title-banner { text-align: center; font-weight: bold; font-size: 10.5pt; border: 1px solid #000; padding: 0.8mm; background: #f0f0f0; letter-spacing: 0.5px; text-transform: uppercase; }' +
         '.grid-header { display: flex; border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; }' +
-        '.supplier-box { flex: 6; padding: 1.5mm 2mm; border-right: 1px solid #000; line-height: 1.2; }' +
-        '.shop-title { font-weight: bold; font-size: 10pt; margin-bottom: 1mm; }' +
-        '.meta-box { flex: 4; padding: 1.5mm 2mm; line-height: 1.3; font-size: 8.5pt; }' +
-        '.meta-row { display: flex; justify-content: space-between; margin-bottom: 0.5mm; }' +
-        '.buyer-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1.5mm 2mm; font-size: 8.5pt; }' +
+        '.supplier-box { flex: 6; padding: 1mm 1.5mm; border-right: 1px solid #000; line-height: 1.2; font-size: 7.5pt; }' +
+        '.shop-title { font-weight: bold; font-size: 9.5pt; margin-bottom: 0.5mm; }' +
+        '.meta-box { flex: 4; padding: 1mm 1.5mm; line-height: 1.25; font-size: 7.5pt; }' +
+        '.meta-row { display: flex; justify-content: space-between; margin-bottom: 0.3mm; }' +
+        '.buyer-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1mm 1.5mm; font-size: 8pt; }' +
         'table.items-table { width: 100%; border-collapse: collapse; border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; margin-top: -1px; }' +
-        'table.items-table th { border: 1px solid #000; background: #eaeaea; font-size: 8pt; font-weight: bold; padding: 1.2mm 1mm; text-align: center; }' +
-        'table.items-table td { border: 1px solid #000; padding: 1mm 1.5mm; font-size: 8pt; vertical-align: middle; }' +
+        'table.items-table th { border: 1px solid #000; background: #eaeaea; font-size: 7.5pt; font-weight: bold; padding: 0.8mm 0.8mm; text-align: center; }' +
+        'table.items-table td { border: 1px solid #000; padding: 0.6mm 1mm; font-size: 7.5pt; vertical-align: middle; line-height: 1.15; }' +
         '.col-sr { width: 8%; text-align: center; }' +
         '.col-desc { width: 48%; text-align: left; }' +
         '.col-qty { width: 14%; text-align: center; }' +
         '.col-rate { width: 15%; text-align: right; }' +
         '.col-amt { width: 15%; text-align: right; }' +
-        '.totals-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1.5mm 2mm; display: flex; justify-content: space-between; align-items: center; }' +
-        '.grand-total-text { font-size: 11pt; font-weight: bold; }' +
-        '.footer-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 2mm; display: flex; justify-content: space-between; align-items: flex-end; }' +
+        '.totals-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1mm 1.5mm; display: flex; justify-content: space-between; align-items: center; font-size: 8pt; }' +
+        '.grand-total-text { font-size: 10pt; font-weight: bold; }' +
+        '.footer-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1.5mm 2mm; display: flex; justify-content: space-between; align-items: flex-end; }' +
         '.footer-center { text-align: center; flex: 1; }' +
-        '.thank-you-text { font-weight: bold; font-size: 9.5pt; margin-bottom: 1mm; }' +
-        '.app-contact-text { font-weight: bold; font-size: 9pt; }' +
-        '.signatory-box { border-top: 1px solid #000; width: 1.3in; text-align: center; padding-top: 1mm; font-weight: bold; font-size: 7.5pt; }' +
+        '.thank-you-text { font-weight: bold; font-size: 9pt; }' +
+        '.signatory-box { border-top: 1px solid #000; width: 1.3in; text-align: center; padding-top: 0.8mm; font-weight: bold; font-size: 7pt; }' +
         '</style>' +
         '</head>' +
         '<body>' +
@@ -383,12 +382,15 @@ function HomeScreen({ navigation, route }: any) {
         '<div class="grid-header">' +
         '<div class="supplier-box">' +
         '<div class="shop-title">SANKESHWAR PARSHWANATH</div>' +
-        '<div><b>Phone:</b> +91 9324357300</div>' +
+        '<div>Magon Nathuram Road, Kurla West-400070</div>' +
+        '<div><b>GSTIN/UIN:</b> 27FRMPS8544D1Z6</div>' +
+        '<div><b>FSSAI:</b> 11520010000180 | <b>Ph:</b> +91 9324357300</div>' +
         '</div>' +
         '<div class="meta-box">' +
         '<div class="meta-row"><span><b>Invoice No:</b></span> <span>' + activeInvoiceNumber + '</span></div>' +
         '<div class="meta-row"><span><b>Date:</b></span> <span>' + formattedDate + '</span></div>' +
         '<div class="meta-row"><span><b>Time:</b></span> <span>' + formattedTime + '</span></div>' +
+        '<div class="meta-row"><span><b>State:</b></span> <span>Maharashtra (27)</span></div>' +
         '</div>' +
         '</div>' +
         '<div class="buyer-box">' +
@@ -416,7 +418,6 @@ function HomeScreen({ navigation, route }: any) {
         '<div class="footer-box">' +
         '<div class="footer-center">' +
         '<div class="thank-you-text">THANK YOU VISIT AGAIN</div>' +
-        '<div class="app-contact-text"><b>App/Website Contact: +91 9324357300</b></div>' +
         '</div>' +
         '<div class="signatory-box">' +
         'Authorised Signatory' +
