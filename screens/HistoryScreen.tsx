@@ -155,102 +155,114 @@ export default function HistoryScreen({ navigation }: any) {
     }
   };
 
-  // ==================== FINAL PRINT FUNCTION ====================
-  // 5x7 inch single-page print - readable fonts, fits 15-18 items
+  // 5x7 inch single-page Tax Invoice print for past bills
   const printOldBill = async (bill: Bill) => {
     try {
       const filteredItems = (bill.items || []).filter(isPopulatedItem);
 
       let tableRows = '';
-      for (const item of filteredItems) {
+      filteredItems.forEach((item, index) => {
         const rowTotal = calculateRowTotal(item.qty, item.rate);
-        const rowHtml =
+        tableRows +=
           '<tr>' +
-          '<td>' +
-          escapeHtml((item.item || '').substring(0, 16)) +
+          '<td class="col-sr">' +
+          (index + 1) +
           '</td>' +
-          '<td>' +
-          escapeHtml(item.qty || 0) +
+          '<td class="col-desc">' +
+          escapeHtml(item.item || '') +
           '</td>' +
-          '<td>' +
-          escapeHtml(item.rate || 0) +
+          '<td class="col-qty">' +
+          escapeHtml(item.qty || '0') +
           '</td>' +
-          '<td>' +
-          rowTotal.toFixed(0) +
+          '<td class="col-rate">' +
+          escapeHtml(item.rate || '0') +
+          '</td>' +
+          '<td class="col-amt">' +
+          rowTotal.toFixed(2) +
           '</td>' +
           '</tr>';
-        tableRows += rowHtml;
-      }
+      });
 
-      const billDate = getBillDateKey(bill) ?? '';
+      const billDate = getBillDateKey(bill) ?? bill.date ?? '';
 
       const html =
+        '<!DOCTYPE html>' +
         '<html>' +
         '<head>' +
+        '<meta charset="utf-8" />' +
         '<style>' +
         '@page { size: 5in 7in; margin: 0; }' +
         '* { margin: 0; padding: 0; box-sizing: border-box; }' +
-        'html, body { overflow: hidden; height: 7in; }' +
-        'body {' +
-        'width: 5in;' +
-        'height: 7in;' +
-        'max-height: 7in;' +
-        'padding: 4mm 4mm 3mm 4mm;' +
-        'font-family: "Courier New", monospace;' +
-        'font-size: 11pt;' +
-        'line-height: 1.15;' +
-        'overflow: hidden;' +
-        '}' +
-        '.header { text-align: center; border-bottom: 0.5px dashed #000; padding-bottom: 2mm; margin-bottom: 2mm; }' +
-        '.shop-name { font-size: 14pt; font-weight: bold; }' +
-        '.shop-sub { font-size: 8pt; }' +
-        '.info-row { display: flex; justify-content: space-between; margin-bottom: 1mm; font-size: 9pt; }' +
-        'table { width: 100%; border-collapse: collapse; margin-top: 2mm; font-size: 10pt; }' +
-        'th, td { border: 0.5px solid #333; padding: 1.2mm 0.8mm; text-align: left; }' +
-        'th { background: #f0f0f0; font-weight: bold; font-size: 9pt; padding: 1.5mm 0.8mm; }' +
-        'td:nth-child(1) { width: 44%; }' +
-        'td:nth-child(2) { width: 14%; text-align: center; }' +
-        'td:nth-child(3) { width: 20%; text-align: right; }' +
-        'td:nth-child(4) { width: 22%; text-align: right; }' +
-        '.total-row { margin-top: 2mm; text-align: right; font-size: 14pt; font-weight: bold; border-top: 0.5px solid #000; padding-top: 2mm; }' +
-        '.footer { margin-top: 3mm; text-align: center; font-size: 8pt; border-top: 0.5px dashed #000; padding-top: 2mm; }' +
-        '.contact { font-size: 7pt; margin-top: 1.5mm; }' +
+        'html, body { width: 5in; height: 7in; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 8.5pt; color: #000; }' +
+        '.page-container { width: 5in; height: 7in; padding: 3mm; display: flex; flex-direction: column; justify-content: space-between; }' +
+        '.title-banner { text-align: center; font-weight: bold; font-size: 11pt; border: 1px solid #000; padding: 1mm; background: #f0f0f0; letter-spacing: 0.5px; text-transform: uppercase; }' +
+        '.grid-header { display: flex; border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; }' +
+        '.supplier-box { flex: 6; padding: 1.5mm 2mm; border-right: 1px solid #000; line-height: 1.2; }' +
+        '.shop-title { font-weight: bold; font-size: 10pt; margin-bottom: 1mm; }' +
+        '.meta-box { flex: 4; padding: 1.5mm 2mm; line-height: 1.3; font-size: 8.5pt; }' +
+        '.meta-row { display: flex; justify-content: space-between; margin-bottom: 0.5mm; }' +
+        '.buyer-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1.5mm 2mm; font-size: 8.5pt; }' +
+        'table.items-table { width: 100%; border-collapse: collapse; border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; margin-top: -1px; }' +
+        'table.items-table th { border: 1px solid #000; background: #eaeaea; font-size: 8pt; font-weight: bold; padding: 1.2mm 1mm; text-align: center; }' +
+        'table.items-table td { border: 1px solid #000; padding: 1mm 1.5mm; font-size: 8pt; vertical-align: middle; }' +
+        '.col-sr { width: 8%; text-align: center; }' +
+        '.col-desc { width: 48%; text-align: left; }' +
+        '.col-qty { width: 14%; text-align: center; }' +
+        '.col-rate { width: 15%; text-align: right; }' +
+        '.col-amt { width: 15%; text-align: right; }' +
+        '.totals-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1.5mm 2mm; display: flex; justify-content: space-between; align-items: center; }' +
+        '.grand-total-text { font-size: 11pt; font-weight: bold; }' +
+        '.footer-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 2mm; display: flex; justify-content: space-between; align-items: flex-end; }' +
+        '.footer-center { text-align: center; flex: 1; }' +
+        '.thank-you-text { font-weight: bold; font-size: 9.5pt; margin-bottom: 1mm; }' +
+        '.app-contact-text { font-weight: bold; font-size: 9pt; }' +
+        '.signatory-box { border-top: 1px solid #000; width: 1.3in; text-align: center; padding-top: 1mm; font-weight: bold; font-size: 7.5pt; }' +
         '</style>' +
         '</head>' +
         '<body>' +
-        '<div class="header">' +
-        '<div class="shop-name">SANKESHWAR PARSHWANATH</div>' +
+        '<div class="page-container">' +
+        '<div>' +
+        '<div class="title-banner">TAX INVOICE</div>' +
+        '<div class="grid-header">' +
+        '<div class="supplier-box">' +
+        '<div class="shop-title">SANKESHWAR PARSHWANATH</div>' +
+        '<div><b>Phone:</b> +91 9324357300</div>' +
         '</div>' +
-        '<div class="info-row">' +
-        '<span><b>Inv:</b> ' +
-        bill.invoiceNo +
-        '</span>' +
-        '<span><b>Date:</b> ' +
-        escapeHtml(billDate) +
-        '</span>' +
+        '<div class="meta-box">' +
+        '<div class="meta-row"><span><b>Invoice No:</b></span> <span>' + bill.invoiceNo + '</span></div>' +
+        '<div class="meta-row"><span><b>Date:</b></span> <span>' + escapeHtml(billDate) + '</span></div>' +
         '</div>' +
-        '<div class="info-row" style="margin-bottom:2mm;">' +
-        '<span><b>Cust:</b> ' +
-        escapeHtml((bill.customerName || 'Walk-in').substring(0, 30)) +
-        '</span>' +
         '</div>' +
-        '<table>' +
+        '<div class="buyer-box">' +
+        '<b>Buyer (Bill to):</b> ' + escapeHtml(bill.customerName || 'Walk-in') +
+        '</div>' +
+        '<table class="items-table">' +
+        '<thead>' +
         '<tr>' +
-        '<th>Item</th>' +
-        '<th>Qty</th>' +
-        '<th>Rate</th>' +
-        '<th>Amt</th>' +
+        '<th class="col-sr">S.N</th>' +
+        '<th class="col-desc">Item Description</th>' +
+        '<th class="col-qty">Qty</th>' +
+        '<th class="col-rate">Rate</th>' +
+        '<th class="col-amt">Amount</th>' +
         '</tr>' +
+        '</thead>' +
+        '<tbody>' +
         tableRows +
+        '</tbody>' +
         '</table>' +
-        '<div class="total-row">' +
-        'Total: ₹' +
-        Number(bill.total || 0).toFixed(2) +
+        '<div class="totals-box">' +
+        '<span><b>Total Items:</b> ' + filteredItems.length + '</span>' +
+        '<span class="grand-total-text">Grand Total: ₹' + Number(bill.total || 0).toFixed(2) + '</span>' +
         '</div>' +
-        '<div class="footer">' +
-        '<b>THANK YOU VISIT AGAIN</b>' +
-        '<div class="contact">' +
-        'App/Website: +91 9324357300' +
+        '</div>' +
+        '<div class="footer-box">' +
+        '<div class="footer-center">' +
+        '<div class="thank-you-text">THANK YOU VISIT AGAIN</div>' +
+        '<div class="app-contact-text"><b>App/Website Contact: +91 9324357300</b></div>' +
+        '</div>' +
+        '<div class="signatory-box">' +
+        'Authorised Signatory' +
+        '</div>' +
         '</div>' +
         '</div>' +
         '</body>' +
