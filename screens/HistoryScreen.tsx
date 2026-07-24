@@ -253,12 +253,12 @@ export default function HistoryScreen({ navigation }: any) {
         '</table>' +
         '<div class="totals-box">' +
         '<span><b>Total Items:</b> ' + filteredItems.length + '</span>' +
-        '<div style="text-align:right;"><span class="grand-total-text">Grand Total: ₹' + Number(bill.total || 0).toFixed(2) + '</span><br/><span class="tax-note">(Inclusive of all taxes)</span></div>' +
+        '<span class="grand-total-text">Grand Total: ₹' + Number(bill.total || 0).toFixed(2) + '</span>' +
         '</div>' +
         '</div>' +
         '<div class="footer-box">' +
         '<div class="footer-center">' +
-        '<div class="tax-declaration-text">Rates are inclusive of all taxes</div>' +
+        '<div class="tax-declaration-text">(Inclusive of all taxes)</div>' +
         '</div>' +
         '<div class="signatory-box">' +
         'Authorised Signatory' +
