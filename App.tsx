@@ -389,11 +389,10 @@ function HomeScreen({ navigation, route }: any) {
         '<div class="meta-row"><span><b>Invoice No:</b></span> <span>' + activeInvoiceNumber + '</span></div>' +
         '<div class="meta-row"><span><b>Date:</b></span> <span>' + formattedDate + '</span></div>' +
         '<div class="meta-row"><span><b>Time:</b></span> <span>' + formattedTime + '</span></div>' +
-        '<div class="meta-row"><span><b>State:</b></span> <span>Maharashtra (27)</span></div>' +
         '</div>' +
         '</div>' +
         '<div class="buyer-box">' +
-        '<b>Buyer (Bill to):</b> ' + escapeHtml(customerName || 'Walk-in') +
+        '<b>Billed to:</b> ' + escapeHtml(customerName || 'Walk-in') +
         '</div>' +
         '<table class="items-table">' +
         '<thead>' +
