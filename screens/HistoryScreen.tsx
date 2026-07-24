@@ -224,10 +224,9 @@ export default function HistoryScreen({ navigation }: any) {
         '<div class="title-banner">TAX INVOICE</div>' +
         '<div class="grid-header">' +
         '<div class="supplier-box">' +
-        '<div class="shop-title">SANKESHWAR PARSHWANATH</div>' +
-        '<div>Magon Nathuram Road, Kurla West-400070</div>' +
-        '<div><b>GSTIN/UIN:</b> 27FRMPS8544D1Z6</div>' +
-        '<div><b>FSSAI:</b> 11520010000180 | <b>Ph:</b> +91 9324357300</div>' +
+        '<div class="shop-title">JALARAM PROVISION STORE</div>' +
+        '<div><b>GSTIN/UIN:</b> 27AFRPB3312A1Z2</div>' +
+        '<div><b>FSSAI:</b> 11524006000494</div>' +
         '</div>' +
         '<div class="meta-box">' +
         '<div class="meta-row"><span><b>Invoice No:</b></span> <span>' + bill.invoiceNo + '</span></div>' +

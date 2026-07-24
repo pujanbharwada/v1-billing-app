@@ -265,7 +265,7 @@ function HomeScreen({ navigation, route }: any) {
 
   const shareBill = async () => {
     try {
-      let billMessage = ` SANKESHWAR PARSHWANATH\n\n`;
+      let billMessage = ` JALARAM PROVISION STORE\n\n`;
       billMessage += `Customer: ${customerName}\n`;
       billMessage += `Invoice No: ${activeInvoiceNumber}\n`;
       billMessage += `Date: ${new Date().toLocaleDateString()}\n`;
@@ -381,10 +381,9 @@ function HomeScreen({ navigation, route }: any) {
         '<div class="title-banner">TAX INVOICE</div>' +
         '<div class="grid-header">' +
         '<div class="supplier-box">' +
-        '<div class="shop-title">SANKESHWAR PARSHWANATH</div>' +
-        '<div>Magon Nathuram Road, Kurla West-400070</div>' +
-        '<div><b>GSTIN/UIN:</b> 27FRMPS8544D1Z6</div>' +
-        '<div><b>FSSAI:</b> 11520010000180 | <b>Ph:</b> +91 9324357300</div>' +
+        '<div class="shop-title">JALARAM PROVISION STORE</div>' +
+        '<div><b>GSTIN/UIN:</b> 27AFRPB3312A1Z2</div>' +
+        '<div><b>FSSAI:</b> 11524006000494</div>' +
         '</div>' +
         '<div class="meta-box">' +
         '<div class="meta-row"><span><b>Invoice No:</b></span> <span>' + activeInvoiceNumber + '</span></div>' +
@@ -437,7 +436,7 @@ function HomeScreen({ navigation, route }: any) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Sankeshwar Parshwanath</Text>
+        <Text style={styles.title}>Jalaram Provision Store</Text>
 
         <TextInput
           placeholder="Customer Name"
