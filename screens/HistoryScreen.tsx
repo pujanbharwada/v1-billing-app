@@ -212,9 +212,10 @@ export default function HistoryScreen({ navigation }: any) {
         '.col-amt { width: 15%; text-align: right; }' +
         '.totals-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1mm 1.5mm; display: flex; justify-content: space-between; align-items: center; font-size: 8pt; }' +
         '.grand-total-text { font-size: 10pt; font-weight: bold; }' +
+        '.tax-note { font-size: 7.5pt; font-weight: normal; font-style: italic; }' +
         '.footer-box { border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 1.5mm 2mm; display: flex; justify-content: space-between; align-items: flex-end; }' +
         '.footer-center { text-align: center; flex: 1; }' +
-        '.thank-you-text { font-weight: bold; font-size: 9pt; }' +
+        '.tax-declaration-text { font-weight: bold; font-size: 8.5pt; }' +
         '.signatory-box { border-top: 1px solid #000; width: 1.3in; text-align: center; padding-top: 0.8mm; font-weight: bold; font-size: 7pt; }' +
         '</style>' +
         '</head>' +
@@ -252,12 +253,12 @@ export default function HistoryScreen({ navigation }: any) {
         '</table>' +
         '<div class="totals-box">' +
         '<span><b>Total Items:</b> ' + filteredItems.length + '</span>' +
-        '<span class="grand-total-text">Grand Total: ₹' + Number(bill.total || 0).toFixed(2) + '</span>' +
+        '<div style="text-align:right;"><span class="grand-total-text">Grand Total: ₹' + Number(bill.total || 0).toFixed(2) + '</span><br/><span class="tax-note">(Inclusive of all taxes)</span></div>' +
         '</div>' +
         '</div>' +
         '<div class="footer-box">' +
         '<div class="footer-center">' +
-        '<div class="thank-you-text">THANK YOU VISIT AGAIN</div>' +
+        '<div class="tax-declaration-text">Rates are inclusive of all taxes</div>' +
         '</div>' +
         '<div class="signatory-box">' +
         'Authorised Signatory' +
